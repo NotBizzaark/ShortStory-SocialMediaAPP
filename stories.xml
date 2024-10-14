@@ -1,0 +1,42 @@
+<stories>
+    <story>
+        <id>1</id>
+        <title>The Whispering Shadows</title>
+        <author>Jane Doe</author>
+        <genre>Fantasy</genre>
+        <preview>In a world where shadows hold secrets, a young girl discovers a hidden realm beneath her village.</preview>
+        <content>As the sun dipped below the horizon, the shadows began to dance... [Full story content continues]</content>
+    </story>
+    <story>
+        <id>2</id>
+        <title>A Glimpse of Tomorrow</title>
+        <author>John Smith</author>
+        <genre>Sci-Fi</genre>
+        <preview>When a scientist invents a device that shows glimpses of the future, he must confront the consequences of his discovery.</preview>
+        <content>Dr. Leonard had always been fascinated by time... [Full story content continues]</content>
+    </story>
+    <story>
+        <id>3</id>
+        <title>The Last Train Home</title>
+        <author>Emily Johnson</author>
+        <genre>Drama</genre>
+        <preview>On a stormy night, a group of strangers on a train learn the power of connection and vulnerability.</preview>
+        <content>The train rattled as thunder echoed outside... [Full story content continues]</content>
+    </story>
+    <story>
+        <id>4</id>
+        <title>Echoes of the Past</title>
+        <author>Michael Lee</author>
+        <genre>Mystery</genre>
+        <preview>In a small town, an old photograph leads a detective on a journey to uncover a decades-old mystery.</preview>
+        <content>The photograph was faded, but the faces were familiar... [Full story content continues]</content>
+    </story>
+    <story>
+        <id>5</id>
+        <title>Unwritten Letters</title>
+        <author>Sara Green</author>
+        <genre>Romance</genre>
+        <preview>A chance encounter leads to a series of letters that change two lives forever.</preview>
+        <content>It all began with a letter left in a library book... [Full story content continues]</content>
+    </story>
+</stories>

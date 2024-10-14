@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Short Stories</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f9f9f9;
+        }
+        .story {
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 20px;
+            background-color: #fff;
+        }
+        .story h2 {
+            margin: 0;
+            color: #333;
+        }
+        .story p {
+            color: #666;
+        }
+        .preview {
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Short Stories</h1>
+    <div id="stories-container"></div>
+
+    <script>
+        // Function to load and display XML data
+        function loadXML() {
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', 'stories.xml', true);
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    const xml = xhr.responseXML;
+                    const stories = xml.getElementsByTagName('story');
+                    let output = '';
+
+                    for (let i = 0; i < stories.length; i++) {
+                        const title = stories[i].getElementsByTagName('title')[0].textContent;
+                        const author = stories[i].getElementsByTagName('author')[0].textContent;
+                        const genre = stories[i].getElementsByTagName('genre')[0].textContent;
+                        const preview = stories[i].getElementsByTagName('preview')[0].textContent;
+                        const content = stories[i].getElementsByTagName('content')[0].textContent;
+
+                        output += `
+                            <div class="story">
+                                <h2>${title}</h2>
+                                <p><strong>Author:</strong> ${author}</p>
+                                <p><strong>Genre:</strong> ${genre}</p>
+                                <p class="preview">${preview}</p>
+                                <p><strong>Content:</strong> ${content}</p>
+                            </div>
+                        `;
+                    }
+
+                    document.getElementById('stories-container').innerHTML = output;
+                }
+            };
+            xhr.send();
+        }
+        window.onload = loadXML;
+    </script>
+
+</body>
+</html>
