@@ -32,13 +32,23 @@
                         const preview = stories[i].getElementsByTagName('preview')[0].textContent;
                         const content = stories[i].getElementsByTagName('content')[0].textContent;
 
+                        // Adds sentence preview to content
+                        const sentences = content.split('.');
+                        const firstTwoSentences = sentences.slice(0, 2).join('.') + '.';
+
+                        const storyId = `story-${i}`;
+
                         output += `
                             <div class="story">
                                 <h2>${title}</h2>
                                 <p><strong>Author:</strong> ${author}</p>
                                 <p><strong>Genre:</strong> ${genre}</p>
                                 <p class="preview">${preview}</p>
-                                <p><strong>Content:</strong> ${content}</p>
+                                <p>${firstTwoSentences}</p>
+                                <button onclick="toggleContent('${storyId}')">Read more</button>
+                                <div id="${storyId}" class="full-content" style="display: none;">
+                                    <p>${content}</p>
+                                </div>
                             </div>
                         `;
                     }
@@ -48,6 +58,16 @@
             };
             xhr.send();
         }
+
+        function toggleContent(storyId) {
+            const contentDiv = document.getElementById(storyId);
+            if (contentDiv.style.display === 'none') {
+                contentDiv.style.display = 'block';
+            } else {
+                contentDiv.style.display = 'none';
+            }
+        }
+
         window.onload = loadXML;
     </script>
 
