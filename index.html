@@ -1,142 +1,212 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>StoryStream</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <title>Library of Short Stories</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #3498db;
+            color: white;
+            padding: 20px;
+        }
+        .logo h1 {
+            margin: 0;
+        }
+        .search-filter input {
+            padding: 10px;
+            margin-right: 10px;
+        }
+        .view-options {
+            margin: 20px 0;
+        }
+        .cards-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .card {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            width: 300px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease, box-shadow 0.2s ease; /* Animation for scale and shadow */
+        }
+        .card:hover {
+            transform: scale(1.05); /* Scale up on hover */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Increase shadow on hover */
+        }
+        .tags {
+            background-color: #f39c12;
+            color: white;
+            padding: 5px;
+            border-radius: 5px;
+            display: inline-block;
+        }
+        .quote {
+            font-style: italic;
+            margin: 10px 0;
+        }
+        .actions button {
+            margin-right: 5px;
+        }
+        /* Modal styles */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+            padding-top: 60px;
+            opacity: 0; /* Start hidden */
+            transition: opacity 0.3s ease; /* Fade in/out transition */
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto; /* 15% from the top and centered */
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%; /* Could be more or less, depending on screen size */
+            animation: modalIn 0.3s ease; /* Animation for modal content */
+        }
+        @keyframes modalIn {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
     <header>
-        <h1>StoryStream</h1>
-        <p>Read and Share Short Stories</p>
-    </header>
-    <div class="flex justify-center items-center min-h-screen">
-        <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
-            <h2 class="text-2xl font-bold mb-6 text-center">Login</h2>
-            <form id="login-form">
-                <div class="mb-4">
-                    <label for="username" class="block text-gray-700">Username</label>
-                    <input type="text" id="username" name="username" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
-                </div>
-                <div class="mb-4">
-                    <label for="password" class="block text-gray-700">Password</label>
-                    <input type="password" id="password" name="password" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
-                </div>
-                <div class="flex items-center justify-between">
-                    <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">Login</button>
-                </div>
-            </form>
+        <div class="logo">
+            <h1>Short Story Social Media App</h1>
+            <p>Read from 1000+ Short Stories.</p>
         </div>
-    </div>
-    <div id="stories-container" class="hidden"></div>
+        <div class="search-filter">
+            <input type="text" placeholder="Search">
+            <button>Filter</button>
+        </div>
+    </header>
+    <main>
+        <div class="view-options">
+            <button>Cards</button>
+            <button>Tiles</button>
+            <button>List</button>
+            <select>
+                <option>By Title</option>
+                <option>By Author</option>
+                <option>By Date</option>
+            </select>
+        </div>
+        <div class="cards-container" id="cards-container">
+            <!-- Dynamic story cards will be injected here -->
+        </div>
+    </main>
 
-    <!-- Modal -->
+    <!-- Modal for displaying story content -->
     <div id="storyModal" class="modal">
         <div class="modal-content">
-            <span class="close" onclick="closeModal()">&times;</span>
-            <div id="modal-story-content"></div>
+            <span class="close">&times;</span>
+            <h2 id="modalTitle"></h2>
+            <p id="modalContent"></p>
         </div>
     </div>
 
     <script>
-        const loginForm = document.getElementById('login-form');
-        const usernameInput = document.getElementById('username');
-        const passwordInput = document.getElementById('password');
-        const storiesContainer = document.getElementById('stories-container');
-
-        loginForm.addEventListener('submit', function(event) {
-            event.preventDefault();
-            const username = usernameInput.value;
-            const password = passwordInput.value;
-
-            if (username === 'user' && password === 'password') {
-                document.querySelector('.min-h-screen').classList.add('hidden');
-                storiesContainer.classList.remove('hidden');
-                loadXML();
-            } else {
-                alert('Invalid username or password');
-            }
-        });
-
-        function loadXML() {
+        // Function to load stories from XML
+        function loadStories() {
             const xhr = new XMLHttpRequest();
-            xhr.open('GET', 'stories.xml', true);
+            xhr.open('GET', 'test.xml', true);
             xhr.onreadystatechange = function () {
                 if (xhr.readyState === 4 && xhr.status === 200) {
                     const xml = xhr.responseXML;
                     const stories = xml.getElementsByTagName('story');
-                    let output = '';
+                    const container = document.getElementById('cards-container');
 
                     for (let i = 0; i < stories.length; i++) {
-                        const title = stories[i].getElementsByTagName('title')[0].textContent;
-                        const author = stories[i].getElementsByTagName('author')[0].textContent;
-                        const genre = stories[i].getElementsByTagName('genre')[0].textContent;
-                        const preview = stories[i].getElementsByTagName('preview')[0].textContent;
-                        const content = stories[i].getElementsByTagName('content')[0].textContent;
+                        const story = stories[i];
+                        const title = story.getElementsByTagName('title')[0].textContent;
+                        const author = story.getElementsByTagName('author')[0].textContent;
+                        const words = story.getElementsByTagName('words')[0]?.textContent || '0';
+                        const description = story.getElementsByTagName('preview')[0].textContent;
+                        const tags = story.getElementsByTagName('genre')[0].textContent;
+                        const content = story.getElementsByTagName('content')[0].textContent;
 
-                        const sentences = content.split('.');
-                        const firstTwoSentences = sentences.slice(0, 2).join('.') + '.';
-
-                        const storyId = `story-${i}`;
-
-                        output += `
-                            <div class="story">
-                                <h2>${title}</h2>
-                                <p><strong>Author:</strong> ${author}</p>
-                                <p><strong>Genre:</strong> ${genre}</p>
-                                <p class="preview">${preview}</p>
-                                <p>${firstTwoSentences}</p>
-                                <button onclick="showModal(${i})">Read more</button>
+                        const card = document.createElement('div');
+                        card.className = 'card';
+                        card.innerHTML = `
+                            <h2>${title}</h2>
+                            <p><strong>Author:</strong> ${author}</p>
+                            <p>${description}</p>
+                            <span class="tags">${tags}</span>
+                            <div class="actions">
+                                <button onclick="openModal('${title}', '${content}')">Read More</button>
+                                <button>Save</button>
                             </div>
                         `;
+                        container.appendChild(card);
                     }
-
-                    storiesContainer.innerHTML = output;
                 }
             };
             xhr.send();
         }
 
-        function showModal(storyIndex) {
-            const xhr = new XMLHttpRequest();
-            xhr.open('GET', 'stories.xml', true);
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState === 4 && xhr.status === 200) {
-                    const xml = xhr.responseXML;
-                    const story = xml.getElementsByTagName('story')[storyIndex];
-                    const title = story.getElementsByTagName('title')[0].textContent;
-                    const author = story.getElementsByTagName('author')[0].textContent;
-                    const genre = story.getElementsByTagName('genre')[0].textContent;
-                    const content = story.getElementsByTagName('content')[0].textContent;
-
-                    const modal = document.getElementById('storyModal');
-                    const modalContent = document.getElementById('modal-story-content');
-                    modalContent.innerHTML = `
-                        <h2>${title}</h2>
-                        <p><strong>Author:</strong> ${author}</p>
-                        <p><strong>Genre:</strong> ${genre}</p>
-                        <p>${content}</p>
-                    `;
-                    modal.style.display = 'flex';
-                }
-            };
-            xhr.send();
-        }
-
-        function closeModal() {
+        // Function to open the modal
+        function openModal(title, content) {
+            document.getElementById('modalTitle').textContent = title;
+            document.getElementById('modalContent').textContent = content;
             const modal = document.getElementById('storyModal');
-            modal.style.display = 'none';
+            modal.style.display = "block";
+            modal.style.opacity = 1; // Fade in effect
         }
 
+        // Function to close the modal
+        document.querySelector('.close').onclick = function() {
+            const modal = document.getElementById('storyModal');
+            modal.style.opacity = 0; // Fade out effect
+            setTimeout(() => {
+                modal.style.display = "none"; // Hide after fade out
+            }, 300); // Match the duration of the fade out
+        }
+
+        // Close the modal when clicking outside of it
         window.onclick = function(event) {
             const modal = document.getElementById('storyModal');
-            if (event.target == modal) {
-                modal.style.display = 'none';
+            if (event.target === modal) {
+                const closeButton = document.querySelector('.close');
+                closeButton.click(); // Trigger close function
             }
         }
+
+        // Load stories on page load
+        window.onload = loadStories;
     </script>
 </body>
 </html>
