@@ -3,156 +3,366 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Short Stories</title>
+    <title>Bookend</title>
     <link rel="stylesheet" href="styles.css">
     <style>
-        /* For dropdown menu */
-        #genre-filter {
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #3498db;
+            color: white;
+            padding: 20px;
+        }
+        .logo h1 {
+            margin: 0;
+        }
+        .search-filter input {
+            padding: 10px;
+            margin-right: 10px;
+        }
+        .view-options {
             margin: 20px 0;
+        }
+        .cards-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px; /* Space between items */
+        }
+        .card-view {
+            flex-direction: row; /* Default card layout */
+        }
+        .tile-view {
+            flex-direction: row; /* Keep in row for tiles */
+        }
+        .card {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            width: 300px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease, box-shadow 0.2s ease; /* Animation for scale and shadow */
+        }
+        .card:hover {
+            transform: scale(1.05); /* Scale up on hover */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Increase shadow on hover */
+        }
+        .tags {
+            background-color: #f39c12;
+            color: white;
             padding: 5px;
+            border-radius: 5px;
+            display: inline-block;
+        }
+        .quote {
+            font-style: italic;
+            margin: 10px 0;
+        }
+        .actions button {
+            margin-right: 5px;
+        }
+        /* Modal styles */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+            padding-top: 60px;
+            opacity: 0; /* Start hidden */
+            transition: opacity 0.3s ease; /* Fade in/out transition */
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto; /* Center the modal */
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%; /* Could be more or less, depending on screen size */
+            max-width: 600px; /* Limit the width for larger screens */
+            border-radius: 8px; /* Rounded corners */
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+            animation: modalIn 0.3s ease; /* Animation for modal content */
+        }
+
+        .modal-content h2 {
+            font-size: 1.8em; /* Increase title size */
+            margin-bottom: 15px; /* Space below title */
+            color: #3498db; /* Color to match the header */
+        }
+
+        .modal-content p {
+            font-size: 1em; /* Base font size */
+            line-height: 1.6; /* Better line spacing for readability */
+            color: #333; /* Darker text for better contrast */
+            margin-bottom: 15px; /* Space between paragraphs */
+        }
+
+        .modal-content .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 15px; /* Space below close button */
+        }
+
+        .modal-content .close:hover,
+        .modal-content .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        @keyframes modalIn {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .card {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px; /* Increased padding for better spacing */
+            width: 300px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            display: flex;
+            flex-direction: column; /* Stack elements vertically */
+        }
+        .card h2 {
+            font-size: 1.5em; /* Larger title font */
+            margin-bottom: 10px; /* Space below title */
+        }
+        .card .author {
+            font-weight: bold; /* Bold author name */
+            margin: 5px 0; /* Space around author */
+        }
+        .card .description {
+            margin: 10px 0; /* Space around description */
+            color: #555; /* Slightly darker color for description */
+        }
+        .card .word-count {
+            font-style: italic; /* Italicize word count */
+            margin: 5px 0; /* Space around word count */
+        }
+        .card .tags {
+            background-color: #f39c12;
+            color: white;
+            padding: 5px;
+            border-radius: 5px;
+            display: inline-block;
+            margin: 10px 0; /* Space around tags */
+        }
+        .card .actions {
+            display: flex;
+            justify-content: space-between; /* Space between buttons */
+            margin-top: auto; /* Push actions to the bottom */
+        }
+        .tile{
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 10px;
+            width: calc(33.33% - 20px); /* Three tiles in a row with some margin */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            margin: 10px; /* Space between tiles */
         }
     </style>
 </head>
 <body>
-
     <header>
-        <h1>StoryStream</h1>
-        <p>Read and Share Short Stories</p>
-    </header>
+        <div class="logo">
+            <h1>Bookend</h1>
+            <p>Short Story Social Media App</p>
+            <p>Read from 1000+ Short Stories.</p>
 
-    <!-- Genre Filter Menu-->
-    <div>
-        <label for="genre-filter"><strong>Filter by Genre: </strong></label>
-        <select id="genre-filter">
-            <option value="all">All Genres</option>
-        </select>
+        </div>
+        <div class="search-filter">
+            <input type="text" placeholder="Search">
+            <button>Filter</button>
+    </div>
+    </header>
+    <main>
+        <div class="view-options">
+            <button id="cardView">Cards</button>
+            <button id="tileView">Tiles</button>
+            <!-- <select>
+                <option>By Title</option>
+                <option>By Author</option>
+                <option>By Date</option>
+            </select> -->
+        </div>
+        <div class="filter-options">
+            <label for="genreFilter">Filter by Genre:</label>
+            <select id="genreFilter">
+                <option value="all">All</option>
+                <option value="fantasy">Fantasy</option>
+                <option value="science-fiction">Science Fiction</option>
+                <option value="mystery">Mystery</option>
+                <option value="romance">Romance</option>
+                <!-- Add more genres as needed -->
+            </select>
+        </div>
+        <div class="cards-container" id="cards-container">
+            <!-- Dynamic story cards will be injected here -->
+        </div>
+    </main>
+
+    <!-- Modal for displaying story content -->
+    <div id="storyModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 id="modalTitle"></h2>
+            <p id="modalContent"></p>
+        </div>
     </div>
 
-    <div id="stories-container"></div>
-
     <script>
-        // Variable for stories
-        let allStories = [];
+        const genreFilter = document.getElementById('genreFilter');
 
-        // Function to load and display XML data
-        function loadXML() {
+        genreFilter.addEventListener('change', (event) => {
+            const selectedGenre = event.target.value;
+            filterStories(selectedGenre);
+        });
+
+        // Function to filter stories based on selected genre
+        function filterStories(selectedGenre) {
+            const cards = document.querySelectorAll('.card');
+            cards.forEach(card => {
+                const tags = card.querySelector('.tags').textContent.toLowerCase();
+                if (selectedGenre === 'all' || tags.includes(selectedGenre.toLowerCase())) {
+                    card.style.display = 'flex'; // Show the card
+                } else {
+                    card.style.display = 'none'; // Hide the card
+                }
+            });
+        }
+
+        const cardViewButton = document.getElementById('cardView');
+        const tileViewButton = document.getElementById('tileView');
+        const cardsContainer = document.getElementById('cards-container');
+
+        cardViewButton.addEventListener('click', () => {
+            // Change to card view
+            cardsContainer.classList.remove('tile-view');
+            cardsContainer.classList.add('card-view');
+            updateCardStyles(); // Function to apply card styles
+        });
+
+        tileViewButton.addEventListener('click', () => {
+            // Change to tile view
+            cardsContainer.classList.remove('card-view');
+            cardsContainer.classList.add('tile-view');
+            updateTileStyles(); // Function to apply tile styles
+        });
+
+        // Function to apply card styles
+        function updateCardStyles() {
+            const cards = document.querySelectorAll('.card');
+            cards.forEach(card => {
+                card.className = 'card'; // Ensure all cards have the 'card' class
+            });
+        }
+
+        // Function to apply tile styles
+        function updateTileStyles() {
+            const cards = document.querySelectorAll('.card');
+            cards.forEach(card => {
+                card.className = 'tile'; // Change all cards to 'tile' class
+            });
+        }
+
+        // Function to load stories from XML
+        function loadStories() {
             const xhr = new XMLHttpRequest();
             xhr.open('GET', 'stories.xml', true);
             xhr.onreadystatechange = function () {
                 if (xhr.readyState === 4 && xhr.status === 200) {
                     const xml = xhr.responseXML;
                     const stories = xml.getElementsByTagName('story');
-
-                    allStories = []; // Reset stories
-                    let genres = new Set(); // Collect genres
+                    const container = document.getElementById('cards-container');
 
                     for (let i = 0; i < stories.length; i++) {
-                        const title = stories[i].getElementsByTagName('title')[0].textContent;
-                        const author = stories[i].getElementsByTagName('author')[0].textContent;
-                        const genre = stories[i].getElementsByTagName('genre')[0].textContent;
-                        const preview = stories[i].getElementsByTagName('preview')[0].textContent;
-                        const content = stories[i].getElementsByTagName('content')[0].textContent;
+                        const story = stories[i];
+                        const title = story.getElementsByTagName('title')[0].textContent;
+                        const author = story.getElementsByTagName('author')[0].textContent;
+                        const words = story.getElementsByTagName('words')[0]?.textContent || '0';
+                        const description = story.getElementsByTagName('preview')[0].textContent;
+                        const tags = story.getElementsByTagName('genre')[0].textContent; // This should match the genre dropdown options
+                        const content = story.getElementsByTagName('content')[0].textContent;
 
-                        //Calculate word count
-                        const wordCount = content.split(/\s+/).length;
-
-                        // Adds sentence preview to content
-                        const sentences = content.split('.');
-                        const firstTwoSentences = sentences.slice(0, 2).join('.') + '.';
-
-                        const story = {
-                            id: `story-${i + 1}`,
-                            title,
-                            author,
-                            genre,
-                            preview,
-                            content,
-                            wordCount,
-                            firstTwoSentences
-                        };
-
-                        allStories.push(story);
-                        genres.add(genre);
+                        const card = document.createElement('div');
+                        card.className = 'card';
+                        card.innerHTML = `
+                            <h2>${title}</h2>
+                            <p class="author"><strong>Author:</strong> ${author}</p>
+                            <p class="description">${description}</p>
+                            <p class="word-count"><strong>Word Count:</strong> ${words}</p>
+                            <span class="tags">${tags}</span>
+                            <div class="actions">
+                                <button onclick="openModal('${title}', '${content}')">Read More</button>
+                                <button>Save</button>
+                            </div>
+                        `;
+                        container.appendChild(card);
                     }
-
-                    // Sort by title
-                    allStories.sort((a, b) => a.title.localeCompare(b.title));
-
-                    populateGenreFilter(Array.from(genres)); // Populate genre filter
-                    displayStories('all'); // Display all stories initially
                 }
             };
             xhr.send();
         }
 
-        // Populate genre dropdown
-        function populateGenreFilter(genres) {
-            const genreFilter = document.getElementById('genre-filter');
-            genres.forEach(genre => {
-                const option = document.createElement('option');
-                option.value = genre;
-                option.textContent = genre.charAt(0).toUpperCase() + genre.slice(1);
-                genreFilter.appendChild(option);
-            });
-
-            genreFilter.addEventListener('change', () => {
-                displayStories(genreFilter.value);
-            });
+        // Function to open the modal
+        function openModal(title, content) {
+            document.getElementById('modalTitle').textContent = title;
+            document.getElementById('modalContent').textContent = content;
+            const modal = document.getElementById('storyModal');
+            modal.style.display = "block";
+            modal.style.opacity = 1; // Fade in effect
         }
 
-        // Display stories based on genre
-        function displayStories(genre) {
-            const container = document.getElementById('stories-container');
-            container.innerHTML = ''; // Clear previous content
-
-            const filteredStories = genre === 'all' ? allStories : allStories.filter(story => story.genre === genre);
-
-            filteredStories.forEach(story => {
-                const { id, title, author, genre, preview, content, wordCount, firstTwoSentences } = story;
-
-                const storyHTML = `
-                    <div class="story">
-                        <h2>${title}</h2>
-                        <p><strong>Author:</strong> ${author}</p>
-                        <p><strong>Genre:</strong> ${genre}</p>
-                        <p><strong>Word Count:</strong> ${wordCount}</p>
-                        <p class="preview"><strong>Summary: </strong> ${preview}</p>
-                        <p>${firstTwoSentences}</p>
-                        <button id="${id}" class="toggle-button" data-story-id="${id}">Read more</button>
-                        <div id="${id}" class="full-content" style="display: none;">
-                            <p>${content}</p>
-                        </div>
-                    </div>
-                `;
-
-                container.innerHTML += storyHTML;
-            });
-
-            // Attach event listeners to toggle buttons
-            const buttons = document.querySelectorAll('.toggle-button');
-            buttons.forEach(button => {
-                button.addEventListener('click', () => {
-                    toggleContent(button.dataset.storyId, button.id);
-                });
-            });
+        // Function to close the modal
+        document.querySelector('.close').onclick = function() {
+            const modal = document.getElementById('storyModal');
+            modal.style.opacity = 0; // Fade out effect
+            setTimeout(() => {
+                modal.style.display = "none"; // Hide after fade out
+            }, 300); // Match the duration of the fade out
         }
 
-        // Toggle content visibility
-        function toggleContent(storyId, buttonId) {
-            const contentDiv = document.getElementById(storyId);
-            const button = document.getElementById(buttonId);
-
-            if (contentDiv.style.display === 'none' || contentDiv.style.display === '') {
-                contentDiv.style.display = 'block';
-                button.textContent = 'Read less';
-            } else {
-                contentDiv.style.display = 'none';
-                button.textContent = 'Read more';
+        // Close the modal when clicking outside of it
+        window.onclick = function(event) {
+            const modal = document.getElementById('storyModal');
+            if (event.target === modal) {
+                const closeButton = document.querySelector('.close');
+                closeButton.click(); // Trigger close function
             }
         }
 
-        window.onload = loadXML;
+        // Load stories on page load
+        window.onload = loadStories;
     </script>
-
 </body>
 </html>
