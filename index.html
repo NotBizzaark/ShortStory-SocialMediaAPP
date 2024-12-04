@@ -107,7 +107,7 @@
 
             const filteredStories = genre === 'all' ? allStories : allStories.filter(story => story.genre === genre);
 
-            filteredStories.forEach(story => {
+            filteredStories.forEach((story, index) => {
                 const { id, title, author, genre, preview, content, wordCount, firstTwoSentences } = story;
 
                 const storyHTML = `
@@ -118,8 +118,8 @@
                         <p><strong>Word Count:</strong> ${wordCount}</p>
                         <p class="preview"><strong>Summary: </strong> ${preview}</p>
                         <p>${firstTwoSentences}</p>
-                        <button id="${id}" class="toggle-button" data-story-id="${id}">Read more</button>
-                        <div id="${id}" class="full-content" style="display: none;">
+                        <button id="toggle-btn-${index}" class="toggle-button" data-story-id="story-content-${index}">Read more</button>
+                        <div id="story-content-${index}" class="full-content" style="display: none;">
                             <p>${content}</p>
                         </div>
                     </div>
