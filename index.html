@@ -155,9 +155,16 @@
             const contentDiv = document.getElementById(storyId);
             const button = document.getElementById(buttonId);
 
+            // Find title element
+            const storyDiv = contentDiv.closest('.story');
+            const titleElement = storyDiv.querySelector('h2');
+
             if (contentDiv.style.display === 'none' || contentDiv.style.display === '') {
                 contentDiv.style.display = 'block';
                 button.textContent = 'Read less';
+
+                // Read-title class added
+                titleElement.classList.add('read-title');
             } else {
                 contentDiv.style.display = 'none';
                 button.textContent = 'Read more';

@@ -163,3 +163,9 @@ header {
     text-decoration: none;
     cursor: pointer;
 }
+
+/* Styles the title of read stories*/
+.read-title {
+    color: #008080;
+    font-style: italic;
+}
