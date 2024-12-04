@@ -3,7 +3,7 @@
     <story id="1">
         <title>The Tell-Tale Heart</title>
         <author>Edgar Allen Poe</author>
-        <genre>Horror</genre>
+        <genre>horror</genre>
         <preview>A man becomes tormented by his own bizarre obsession with an old man's eye, commits a heinous act, and must grapple with the consequences.</preview>
         <content>
             <![CDATA[
@@ -47,7 +47,7 @@ No doubt I now grew very pale; — but I talked more fluently, and with a height
     <story id="2">
         <title>The Beautiful Suit</title>
         <author>H. G. Wells</author>
-        <genre>Tragedy</genre>
+        <genre>tragedy</genre>
         <preview>A man's mother makes him a beautiful suit, and he longs to wear it, but wants to save it for the right occasion.</preview>
         <content>
             <![CDATA[
@@ -82,7 +82,7 @@ And next morning they found him dead, with his neck broken, in the bottom of the
     <story id="3">
         <title>The Cats of Ulthar</title>
         <author>H.P. Lovercraft</author>
-        <genre>Horror</genre>
+        <genre>horror</genre>
         <preview>In Ulthar, killing cats is strictly forbidden - for a bone-chilling reason.</preview>
         <content>
             <![CDATA[
