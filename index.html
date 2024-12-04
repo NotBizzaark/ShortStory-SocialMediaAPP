@@ -12,6 +12,7 @@
         <h1>StoryStream</h1>
         <p>Read and Share Short Stories</p>
     </header>
+
     <div id="stories-container"></div>
 
     <script>
@@ -32,20 +33,25 @@
                         const preview = stories[i].getElementsByTagName('preview')[0].textContent;
                         const content = stories[i].getElementsByTagName('content')[0].textContent;
 
+                        //Calculate word count
+                        const wordCount = content.split(/\s+/).length;
+
                         // Adds sentence preview to content
                         const sentences = content.split('.');
                         const firstTwoSentences = sentences.slice(0, 2).join('.') + '.';
 
                         const storyId = `story-${i}`;
+                        const buttonId = `btn-${storyId}`;
 
                         output += `
                             <div class="story">
                                 <h2>${title}</h2>
                                 <p><strong>Author:</strong> ${author}</p>
                                 <p><strong>Genre:</strong> ${genre}</p>
+                                <p><strong>Word Count:</strong> ${wordCount}</p>
                                 <p class="preview">${preview}</p>
                                 <p>${firstTwoSentences}</p>
-                                <button onclick="toggleContent('${storyId}')">Read more</button>
+                                <button id="${buttonId}" class="toggle-button" data-story-id="${storyId}">Read more</button>
                                 <div id="${storyId}" class="full-content" style="display: none;">
                                     <p>${content}</p>
                                 </div>
@@ -54,17 +60,32 @@
                     }
 
                     document.getElementById('stories-container').innerHTML = output;
+
+
+                    // Button event listener
+                    const buttons = document.querySelectorAll('.toggle-button');
+                    buttons.forEach(button => {
+                        button.addEventListener('click', () => {
+                            toggleContent(button.dataset.storyId, button.id);
+                        });
+                    });
+
                 }
             };
             xhr.send();
         }
 
-        function toggleContent(storyId) {
+        // Toggle content visibility
+        function toggleContent(storyId, buttonId) {
             const contentDiv = document.getElementById(storyId);
-            if (contentDiv.style.display === 'none') {
+            const button = document.getElementById(buttonId);
+
+            if (contentDiv.style.display === 'none' || contentDiv.style.display === '') {
                 contentDiv.style.display = 'block';
+                button.textContent = 'Read less';
             } else {
                 contentDiv.style.display = 'none';
+                button.textContent = 'Read more';
             }
         }
 

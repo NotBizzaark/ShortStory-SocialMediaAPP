@@ -1,51 +1,13 @@
-<stories>
-    <story>
-        <id>1</id>
-        <title>The Whispering Shadows</title>
-        <author>Jane Doe</author>
-        <genre>Fantasy</genre>
-        <preview>In a world where shadows hold secrets, a young girl discovers a hidden realm beneath her village.</preview>
-        <content>As the sun dipped below the horizon, the shadows began to dance... [Full story content continues]</content>
-    </story>
-    <story>
-        <id>2</id>
-        <title>A Glimpse of Tomorrow</title>
-        <author>John Smith</author>
-        <genre>Sci-Fi</genre>
-        <preview>When a scientist invents a device that shows glimpses of the future, he must confront the consequences of his discovery.</preview>
-        <content>Dr. Leonard had always been fascinated by time... [Full story content continues]</content>
-    </story>
-    <story>
-        <id>3</id>
-        <title>The Last Train Home</title>
-        <author>Emily Johnson</author>
-        <genre>Drama</genre>
-        <preview>On a stormy night, a group of strangers on a train learn the power of connection and vulnerability.</preview>
-        <content>The train rattled as thunder echoed outside... [Full story content continues]</content>
-    </story>
-    <story>
-        <id>4</id>
-        <title>Echoes of the Past</title>
-        <author>Michael Lee</author>
-        <genre>Mystery</genre>
-        <preview>In a small town, an old photograph leads a detective on a journey to uncover a decades-old mystery.</preview>
-        <content>The photograph was faded, but the faces were familiar... [Full story content continues]</content>
-    </story>
-    <story>
-        <id>5</id>
-        <title>Unwritten Letters</title>
-        <author>Sara Green</author>
-        <genre>Romance</genre>
-        <preview>A chance encounter leads to a series of letters that change two lives forever.</preview>
-        <content>It all began with a letter left in a library book... [Full story content continues]</content>
-    </story>
-    <story>
-        <id>6</id>
+<?xml version="1.0" encoding="UTF-8"?>
+<stories xmlns="http://www.example.com/storystream" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.example.com/stories.xsd">
+    <story id="1">
         <title>The Tell-Tale Heart</title>
         <author>Edgar Allen Poe</author>
         <genre>Horror</genre>
         <preview>A man becomes tormented by his own bizarre obsession with an old man's eye, commits a heinous act, and must grapple with the consequences.</preview>
-        <content>True! — nervous — very, very dreadfully nervous I had been and am; but why will you say that I am mad? The disease had sharpened my senses — not destroyed — not dulled them. Above all was the sense of hearing acute. I heard all things in the heaven and in the earth. I heard many things in hell. How, then, am I mad? Hearken! and observe how healthily — how calmly I can tell you the whole story.
+        <content>
+            <![CDATA[
+            True! — nervous — very, very dreadfully nervous I had been and am; but why will you say that I am mad? The disease had sharpened my senses — not destroyed — not dulled them. Above all was the sense of hearing acute. I heard all things in the heaven and in the earth. I heard many things in hell. How, then, am I mad? Hearken! and observe how healthily — how calmly I can tell you the whole story.
 
 It is impossible to say how first the idea entered my brain; but once conceived, it haunted me day and night. Object there was none. Passion there was none. I loved the old man. He had never wronged me. He had never given me insult. For his gold I had no desire. I think it was his eye! yes, it was this! One of his eyes resembled that of a vulture — a pale blue eye, with a film over it. Whenever it fell upon me, my blood ran cold; and so by degrees — very gradually — I made up my mind to take the life of the old man, and thus rid myself of the eye forever.
 
@@ -79,15 +41,17 @@ The officers were satisfied. My manner had convinced them. I was singularly at e
 
 No doubt I now grew very pale; — but I talked more fluently, and with a heightened voice. Yet the sound increased — and what could I do? It was a low, dull, quick sound — much such a sound as a watch makes when enveloped in cotton. I gasped for breath — and yet the officers heard it not. I talked more quickly — more vehemently; but the noise steadily increased. I arose and argued about trifles, in a high key and with violent gesticulations; but the noise steadily increased. Why would they not be gone? I paced the floor to and fro with heavy strides, as if excited to fury by the observations of the men — but the noise steadily increased. Oh God! what could I do? I foamed — I raved — I swore! I swung the chair upon which I had been sitting, and grated it upon the boards, but the noise arose over all and continually increased. It grew louder — louder — louder! And still the men chatted pleasantly, and smiled. Was it possible they heard not? Almighty God! — no, no! They heard! — they suspected! — they knew! — they were making a mockery of my horror! — this I thought, and this I think. But anything was better than this agony! Anything was more tolerable than this derision! I could bear those hypocritical smiles no longer! I felt that I must scream or die! — and now — again! — hark! louder! louder! louder! louder! —
 
-“Villains!” I shrieked, “dissemble no more! I admit the deed! — tear up the planks! — here, here! — it is the beating of his hideous heart!”</content>
+“Villains!” I shrieked, “dissemble no more! I admit the deed! — tear up the planks! — here, here! — it is the beating of his hideous heart!”]]>
+        </content>
     </story>
-    <story>
-        <id>7</id>
+    <story id="2">
         <title>The Beautiful Suit</title>
         <author>H. G. Wells</author>
         <genre>Tragedy</genre>
         <preview>A man's mother makes him a beautiful suit, and he longs to wear it, but wants to save it for the right occasion.</preview>
-        <content>There was once a little man whose mother made him a beautiful suit of clothes. It was green and gold, and woven so that I can not describe how delicate and fine it was, and there was a tie of orange fluffiness that tied up under his chin. And the buttons in their newness shone like stars. He was proud and pleased by his suit beyond measure, and stood before the long looking-glass when first he put it on, so astonished and delighted with it that he could hardly turn himself away.
+        <content>
+            <![CDATA[
+            There was once a little man whose mother made him a beautiful suit of clothes. It was green and gold, and woven so that I can not describe how delicate and fine it was, and there was a tie of orange fluffiness that tied up under his chin. And the buttons in their newness shone like stars. He was proud and pleased by his suit beyond measure, and stood before the long looking-glass when first he put it on, so astonished and delighted with it that he could hardly turn himself away.
 
 He wanted to wear it everywhere, and show it to all sorts of people. He thought over all the places he had ever visited, and all the scenes he had ever heard described, and tried to imagine what the feel of it would be if he were to go now to those scenes and places wearing his shining suit, and he wanted to go out forthwith into the long grass and hot sunshine of the meadow wearing it. Just to wear it! But his mother told him “No,” She told him he must take great care of his suit, for never would he have another nearly so fine; he must save it and save it, and only wear it on rare great occasions. It was his wedding-suit, she said. And she took the buttons and twisted them up with tissue paper for fear their bright newness should be tarnished, and she tacked little guards over the cuffs and elbows, and wherever the suit was most likely to come to harm. He hated and resisted these things, but what could he do? And at last her warnings and persuasions had effect, and he consented to take off his beautiful suit and fold it into its proper creases, and put it away. It was almost as though he gave it up again. But he was always thinking of wearing it, and of the supreme occasions when some day it might be worn without the guards, without the tissue paper on the buttons, utterly and delightfully, never caring, beautiful beyond measure.
 
@@ -111,15 +75,18 @@ The high-road ran straight as an arrow flies, straight into the deep-blue pit of
 
 And the moth circled closer and closer until at last its velvet wings just brushed his lips...
 
-And next morning they found him dead, with his neck broken, in the bottom of the stone pit, with his beautiful clothes a little bloody, and foul and stained with the duckweed from the pond. But his face was a face of such happiness that, had you seen it, you would have understood indeed how that he had died happy, never knowing that cool and streaming silver for the duckweed in the pond.</content>
+And next morning they found him dead, with his neck broken, in the bottom of the stone pit, with his beautiful clothes a little bloody, and foul and stained with the duckweed from the pond. But his face was a face of such happiness that, had you seen it, you would have understood indeed how that he had died happy, never knowing that cool and streaming silver for the duckweed in the pond.
+]]>
+</content>
     </story>
-    <story>
-        <id>8</id>
+    <story id="3">
         <title>The Cats of Ulthar</title>
         <author>H.P. Lovercraft</author>
         <genre>Horror</genre>
         <preview>In Ulthar, killing cats is strictly forbidden - for a bone-chilling reason.</preview>
-        <content>It is said that in Ulthar, which lies beyond the river Skai, no man may kill a cat; and this I can verily believe as I gaze upon him who sitteth purring before the fire. For the cat is cryptic, and close to strange things which men cannot see. He is the soul of antique Aegyptus, and bearer of tales from forgotten cities in Meroë and Ophir. He is the kin of the jungle’s lords, and heir to the secrets of hoary and sinister Africa. The Sphinx is his cousin, and he speaks her language; but he is more ancient than the Sphinx, and remembers that which she hath forgotten.
+        <content>
+            <![CDATA[
+            It is said that in Ulthar, which lies beyond the river Skai, no man may kill a cat; and this I can verily believe as I gaze upon him who sitteth purring before the fire. For the cat is cryptic, and close to strange things which men cannot see. He is the soul of antique Aegyptus, and bearer of tales from forgotten cities in Meroë and Ophir. He is the kin of the jungle’s lords, and heir to the secrets of hoary and sinister Africa. The Sphinx is his cousin, and he speaks her language; but he is more ancient than the Sphinx, and remembers that which she hath forgotten.
 
 In Ulthar, before ever the burgesses forbade the killing of cats, there dwelt an old cotter and his wife who delighted to trap and slay the cats of their neighbours. Why they did this I know not; save that many hate the voice of the cat in the night, and take it ill that cats should run stealthily about yards and gardens at twilight. But whatever the reason, this old man and woman took pleasure in trapping and slaying every cat which came near to their hovel; and from some of the sounds heard after dark, many villagers fancied that the manner of slaying was exceedingly peculiar. But the villagers did not discuss such things with the old man and his wife; because of the habitual expression on the withered faces of the two, and because their cottage was so small and so darkly hidden under spreading oaks at the back of a neglected yard. In truth, much as the owners of cats hated these odd folk, they feared them more; and instead of berating them as brutal assassins, merely took care that no cherished pet or mouser should stray toward the remote hovel under the dark trees. When through some unavoidable oversight a cat was missed, and sounds heard after dark, the loser would lament impotently; or console himself by thanking Fate that it was not one of his children who had thus vanished. For the people of Ulthar were simple, and knew not whence it is all cats first came.
 
@@ -137,6 +104,8 @@ It was fully a week before the villagers noticed that no lights were appearing a
 
 There was subsequently much talk among the burgesses of Ulthar. Zath, the coroner, disputed at length with Nith, the lean notary; and Kranon and Shang and Thul were overwhelmed with questions. Even little Atal, the innkeeper’s son, was closely questioned and given a sweetmeat as reward. They talked of the old cotter and his wife, of the caravan of dark wanderers, of small Menes and his black kitten, of the prayer of Menes and of the sky during that prayer, of the doings of the cats on the night the caravan left, and of what was later found in the cottage under the dark trees in the repellent yard.
 
-And in the end the burgesses passed that remarkable law which is told of by traders in Hatheg and discussed by travellers in Nir; namely, that in Ulthar no man may kill a cat.</content>
+And in the end the burgesses passed that remarkable law which is told of by traders in Hatheg and discussed by travellers in Nir; namely, that in Ulthar no man may kill a cat.
+]]>
+</content>
     </story>
 </stories>
