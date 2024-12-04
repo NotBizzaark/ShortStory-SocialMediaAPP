@@ -6,10 +6,12 @@
     <title>Short Stories</title>
     <link rel="stylesheet" href="styles.css">
     <style>
-        /* For dropdown menu */
-        #genre-filter {
-            margin: 20px 0;
+        /* For dropdown menu and search bar */
+        #genre-filter, #title-search {
+            margin: 10px 0;
             padding: 5px;
+            width: 100%;
+            max-width: 300px;
         }
     </style>
 </head>
@@ -20,12 +22,18 @@
         <p>Read and Share Short Stories</p>
     </header>
 
-    <!-- Genre Filter Menu-->
+    <!-- Genre Filter Menu -->
     <div>
         <label for="genre-filter"><strong>Filter by Genre: </strong></label>
         <select id="genre-filter">
             <option value="all">All Genres</option>
         </select>
+    </div>
+
+    <!-- Title Search Bar -->
+    <div>
+        <label for="title-search"><strong>Search by Title: </strong></label>
+        <input type="text" id="title-search" placeholder="Search for a story...">
     </div>
 
     <div id="stories-container"></div>
@@ -100,15 +108,20 @@
             });
         }
 
-        // Display stories based on genre
-        function displayStories(genre) {
+        // Display stories based on genre or search
+        function displayStories(genre, searchTerm = '') {
             const container = document.getElementById('stories-container');
             container.innerHTML = ''; // Clear previous content
 
-            const filteredStories = genre === 'all' ? allStories : allStories.filter(story => story.genre === genre);
+           // Filter by genre or search term
+            const filteredStories = allStories.filter(story => {
+                const matchesGenre = genre === 'all' || story.genre === genre;
+                const matchesSearch = story.title.toLowerCase().includes(searchTerm.toLowerCase());
+                return matchesGenre && matchesSearch;
+            })
 
             filteredStories.forEach((story, index) => {
-                const { id, title, author, genre, preview, content, wordCount, firstTwoSentences } = story;
+                const { title, author, genre, preview, content, wordCount, firstTwoSentences } = story;
 
                 const storyHTML = `
                     <div class="story">
@@ -150,6 +163,14 @@
                 button.textContent = 'Read more';
             }
         }
+
+        // Search functionality
+        const searchInput = document.getElementById('title-search');
+        searchInput.addEventListener('input', () => {
+            const searchTerm = searchInput.value;
+            const selectedGenre = document.getElementById('genre-filter').value;
+            displayStories(selectedGenre, searchTerm);
+        });
 
         window.onload = loadXML;
     </script>
